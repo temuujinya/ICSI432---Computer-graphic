@@ -8,6 +8,7 @@ using namespace std;
 
 GLint point = 360;
 float po=1;
+
 void displayMe(void)
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -20,7 +21,7 @@ void displayMe(void)
 	 glVertex2f(cos(angle),sin(angle));
 	} 
     glEnd();
-    glFlush();
+    glFlush();      
 }
  
 void keyboardListen(unsigned char key, int mouseX, int mouseY){
@@ -40,9 +41,17 @@ void keyboardListen(unsigned char key, int mouseX, int mouseY){
     glutPostRedisplay();
 }
 
+void specialFuncListen(int key, int x, int y){
+
+    switch(key){
+        case GLUT_KEY_UP: po--;break;
+        case GLUT_KEY_DOWN: po++;break;
+    }
+    glutPostRedisplay();
+}
+
 int main(int argc, char** argv)
 {
-
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE);
@@ -51,10 +60,10 @@ int main(int argc, char** argv)
     glutCreateWindow("Hello world!");
     glutDisplayFunc(displayMe);
     
+    glutSpecialFunc(specialFuncListen);    
     glutKeyboardFunc(keyboardListen);
     glutMainLoop();
     return 0;
-
-   //glutSpecialFunc(); 
+ 
    //glutKeyboardFunc();
 }
