@@ -1,4 +1,4 @@
-#include <gl/glut.h>
+#include <GL/glut.h>
 #include <vector>
 
 #include<iostream>
@@ -6,13 +6,24 @@ using namespace std;
 
 std::vector< float > points;
 
-int status=0;
+int status=0,pointSize=5;
 
 float red=0,green=0,blue=0;
+
+void addToPoints(int x, int y){
+int yy;
+    yy = glutGet(GLUT_WINDOW_HEIGHT);
+    y=yy-y;
+    if(status){
+        points.push_back(x);
+        points.push_back(y);
+    }
+}
 void myMouse(int button, int state, int x, int y)
 {
-
-    status= button ==GLUT_LEFT_BUTTON;
+  status= button ==GLUT_LEFT_BUTTON;
+    addToPoints(x,y);
+    glutPostRedisplay();
 }
 
 void myDisplay(void)
@@ -27,7 +38,7 @@ void myDisplay(void)
     //glMatrixMode(GL_MODELVIEW);
     //glLoadIdentity();
 
-    glPointSize(5);
+    glPointSize(pointSize);
     glBegin(GL_POINTS);
     glColor3f(red, green, blue);
 
@@ -41,24 +52,20 @@ for (size_t i = 0; i < points.size(); i += 2)
 }
 
 void moion(int x, int y){
-    int yy;
-    cout<<y<<endl;
-    yy = glutGet(GLUT_WINDOW_HEIGHT);
-    y = yy - y; /* In Glut, Y coordinate increases from top to bottom */
-    cout<<yy<<endl;
-    if(status )
-    {
-        points.push_back(x);
-        points.push_back(y);
-    }
+    addToPoints(x,y);
     glutPostRedisplay();
 }
 
 void keyboard(unsigned char key, int x, int y){
     switch(key){
         case '0': red=0;green=0;blue=0;break;
-        case '1': red=0;green=199;blue=0;break;
-        case '2': red=0;green=0;blue=199;break;
+        case 'r': red=199;green=0;blue=0;break;
+        case 'g': red=0;green=199;blue=0;break;
+        case 'b': red=0;green=0;blue=199;break;
+        case '2': pointSize=2;break;
+        case '3': pointSize=3;break;
+        case '4': pointSize=4;break;
+        case '5': pointSize=5;break;
     }
 }
 int main(int argc, char** argv)
