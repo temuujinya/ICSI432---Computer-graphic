@@ -1,0 +1,4 @@
+$1 - ehnii argument
+$@ - buh argument
+/home/user/.bashrc
+alias openglc='f(){ g++ "$1" -o "$2" -lglut -lGLU -lGL;}; f'
