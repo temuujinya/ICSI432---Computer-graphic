@@ -1,22 +1,57 @@
 #include "GL/freeglut.h"
 
+void changeSize(int w,int h){
+    //цонх хэтэрхий богино үед 0д хуваагдхаас сэргийлж байна.
+    //0-н өргөнтэй цон үүсгэж чадахгүй
+    if(h==0){
+        h=1;
+    }
+
+    float ratio = 1.0* w / h;
+
+    //Use the projection matrix
+    glMatrixMode(GL_PROJECTION);
+
+    //Reset Matrix
+    glLoadIdentity();
+
+    //Set the viewport to be the entire window
+    //the first two parameters are the bottom left corner, 
+    //and the last two are the width and height of the viewport.
+    glViewport(0, 0, w, h);
+
+    //set the correct perspective
+    gluPerspective(45, ratio, 1, 1000);
+    //Get back to the modelview
+    glMatrixMode(GL_MODELVIEW);
+}
+
+float angle = 0.0f;
 
 void renderScene(void) {
     //bg color
     glClearColor(0.2,0.5,0.4,0.5);
-    //clear previous  color
+    //clear previous  color and depth buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+
+    //reset transformations
+    glLoadIdentity();
+    //set the camera 
+    gluLookAt(  0.0f,0.0f,10.0f,
+                0.0f, 0.0f, 0.0f,
+                0.0f, 1.0f, 0.0f);
+    glRotatef(angle, 0.0f,1.0f,0.0f);
 
 	glBegin(GL_TRIANGLES);
         //triagle color
         //just fill in the blanks with RGB values between 0 and 1
-		glColor3f(0.4,0.1,0.1);
-        glVertex3f(-0.5,-0.5,0.0);
-		glColor3f(0.4,0.3,0.9);
-		glVertex3f(0.5,0.0,0.0);
-		glColor3f(0.9,0.3,0.4);
-		glVertex3f(0.0,0.5,0.0);
+		
+		glVertex3f(-2,-2,0.0);
+		glVertex3f(2,0.0,0.0);
+		glVertex3f(0.0,2,0.0);
 	glEnd();
+
+    angle+=0.1f;
 
     // Using double buffering (GL_DOUBLE in the init function) OpenGL draws in the 
     // back buffer and presents the contents from the front buffer in the window. 
@@ -41,6 +76,10 @@ int main(int argc, char **argv){
 
     // register callbacks
     glutDisplayFunc(renderScene);
+    glutReshapeFunc(changeSize);
+
+    // here is th eidke func registration
+    glutIdleFunc(renderScene);
 
     //Enter Glut event processing cycle
     glutMainLoop();
