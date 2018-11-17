@@ -103,4 +103,38 @@ The final setting relates to the Z-buffer, aka depth buffer, which
 stores the depths of the pixels currently on the screen, and prevents 
 a pixel from being written if its further away than the pixel in the 
 frame buffer.
+
+
+Q2:But what is idle? I mean, when does the OpenGL/GLUT enters in an idle state? 
+And, instead of registering an idle function, why don’t you add glutPostRedisplay()
+end of renderScene()?
+
+A2: Idle is when there is nothing else to do. Basically we’re just telling 
+GLUT to call the render function as often as it can. Using glutPostRedisplay
+ at the end of the render scene function provides the same effect, as you
+  mention.
+
+
+Q:3
+So, you are rotating the camera around the triangle rather rotating the 
+triangle itself right? Can you please explain all the parameters for the 
+function gluLookAt()..? Is the angle in degrees or radians? What 1.0f means?
+
+A3:
+Actually I’m rotating the triangle. The rotation “prepares” the coordinate 
+system for what follows. It never affects what has already been drawn, or 
+placed in the case of the camera. The angle for glRotation is in degrees.
+Beware that in C the angle is in radians though.
+The first three params of gluLookAt are the camera position, the second 
+group of three values is a point where the camera is aimed, and the final 
+three, the up vector, relate to the tilt of the camera. Having (0,1,0) as 
+the up vector means the camera is not tilted. Try with other values, for 
+instance (1,1,0), and you’ll see what I mean.
+Finally 1.0f. If you just write 1.0 you’re actually writing a double, not 
+a float. The f tells the compiler that the value is a float.
+
+
+The changeSize function deals with the projection matrix, so its required. 
+This function is called when the window is shown, and afterwards when the 
+window changes.
 */
