@@ -1,5 +1,30 @@
 #include "GL/freeglut.h"
 
+void changeSize(int w,int h){
+    //цонх хэтэрхий богино үед 0д хуваагдхаас сэргийлж байна.
+    //0-н өргөнтэй цон үүсгэж чадахгүй
+    if(h==0){
+        h=1;
+    }
+
+    float ratio = 1.0* w / h;
+
+    //Use the projection matrix
+    glMatrixMode(GL_PROJECTION);
+
+    //Reset Matrix
+    glLoadIdentity();
+
+    //Set the viewport to be the entire window
+    //the first two parameters are the bottom left corner, 
+    //and the last two are the width and height of the viewport.
+    glViewport(0, 0, w, h);
+
+    //set the correct perspective
+    gluPerspective(45, ratio, 1, 1000);
+    //Get back to the modelview
+    glMatrixMode(GL_MODELVIEW);
+}
 
 void renderScene(void) {
     //bg color
@@ -10,12 +35,10 @@ void renderScene(void) {
 	glBegin(GL_TRIANGLES);
         //triagle color
         //just fill in the blanks with RGB values between 0 and 1
-		glColor3f(0.4,0.1,0.1);
-        glVertex3f(-0.5,-0.5,0.0);
-		glColor3f(0.4,0.3,0.9);
-		glVertex3f(0.5,0.0,0.0);
-		glColor3f(0.9,0.3,0.4);
-		glVertex3f(0.0,0.5,0.0);
+		
+		glVertex3f(-2,-2,-5.0);
+		glVertex3f(2,0.0,-5.0);
+		glVertex3f(0.0,2,-5.0);
 	glEnd();
 
     // Using double buffering (GL_DOUBLE in the init function) OpenGL draws in the 
@@ -41,6 +64,8 @@ int main(int argc, char **argv){
 
     // register callbacks
     glutDisplayFunc(renderScene);
+
+    glutReshapeFunc(changeSize);
 
     //Enter Glut event processing cycle
     glutMainLoop();
