@@ -40,12 +40,13 @@ void renderScene(void) {
     gluLookAt(  0.0f,0.0f,10.0f,
                 0.0f, 0.0f, 0.0f,
                 0.0f, 1.0f, 0.0f);
+
     glRotatef(angle, 0.0f,1.0f,0.0f);
+
 
 	glBegin(GL_TRIANGLES);
         //triagle color
         //just fill in the blanks with RGB values between 0 and 1
-		
 		glVertex3f(-2,-2,0.0);
 		glVertex3f(2,0.0,0.0);
 		glVertex3f(0.0,2,0.0);

@@ -69,8 +69,8 @@ void renderScene(void) {
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
-	gluLookAt(	x, 50.0f, z,
-				x+lx+50, -1.0f,  z+lz-50,
+	gluLookAt(	x, 1.0f, z,
+				x+lx, 1.0f,  z+lz,
 				0.0f, 1.0f,  0.0f);
 
 	//Draw ground 
@@ -108,21 +108,21 @@ void processSpecialKeys(int key, int xx, int yy) {
 	switch (key) {
 		case GLUT_KEY_LEFT :
 			angle -= 5.01f;
-			lx = sin(angle)+50;
-			lz = -cos(angle)+50;
+			lx = sin(angle);
+			lz = -cos(angle);
 			break;
 		case GLUT_KEY_RIGHT :
 			angle += 5.01f;
-			lx = sin(angle)+50;
-			lz = -cos(angle)+50;
+			lx = sin(angle);
+			lz = -cos(angle);
 			break;
 		case GLUT_KEY_UP :
-			x += lx * fraction+50;
-			z += lz * fraction+50;
+			x += lx * fraction;
+			z += lz * fraction;
 			break;
 		case GLUT_KEY_DOWN :
-			x -= lx * fraction+50;
-			z -= lz * fraction+50;
+			x -= lx * fraction;
+			z -= lz * fraction;
 			break;
 	}
 }
