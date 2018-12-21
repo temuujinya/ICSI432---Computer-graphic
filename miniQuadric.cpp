@@ -39,7 +39,7 @@ void ChangeSize(int w, int h) {
 // context.  Here it sets up and initializes the lighting for
 // the scene.
 void SetupRC() {
-    /*
+
     // Light values and coordinates
     GLfloat  whiteLight[] = { 0.05f, 0.05f, 0.05f, 1.0f };
     GLfloat  sourceLight[] = { 0.25f, 0.25f, 0.25f, 1.0f };
@@ -59,7 +59,7 @@ void SetupRC() {
     glEnable(GL_COLOR_MATERIAL);
     
     // Set Material properties to follow glColor values
-    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE); */
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE); 
 
     // Black blue background
     glClearColor(0.25f, 0.25f, 0.50f, 1.0f);
@@ -102,6 +102,77 @@ void chimeglel(GLUquadricObj *pObj, float lX ,float lZ,float lY){
     
     glPopMatrix();
 }
+
+void mod(GLUquadricObj *pObj,float lX ,float lZ,float lY){
+// glPushMatrix();
+//tree body
+glColor3f(.0,1.0,.0);
+    // glTranslatef(0.1f, -0.12f, 0.0f);
+    glTranslatef(lX, lZ, lY);
+    glDisable(GL_CULL_FACE);
+    gluCylinder(pObj, 2,.0, 3, 26, 1);
+   glEnable(GL_CULL_FACE);
+ //mod disk
+
+ glDisable(GL_CULL_FACE);
+//  glColor3f(1.0f,1.0f,1.0f);
+    gluDisk(pObj, 0,2.0f, 26, 13);
+glEnable(GL_CULL_FACE);
+ 
+
+ //tree body2
+glColor3f(.0,1.0,.0);
+    glTranslatef(0.0f, -0.12f, -2.3f);
+    glDisable(GL_CULL_FACE);
+    gluCylinder(pObj, 3,.3, 2.6, 26, 1);
+   glEnable(GL_CULL_FACE);
+ //mod disk
+
+ glDisable(GL_CULL_FACE);
+//  glColor3f(1.0f,1.0f,1.0f);
+    gluDisk(pObj, 0,3.0f, 26, 13);
+glEnable(GL_CULL_FACE);
+ 
+
+
+ //tree body3
+glColor3f(.0,1.0,.0);
+    glTranslatef(0.0f, -0.12f, -2.3f);
+    glDisable(GL_CULL_FACE);
+    gluCylinder(pObj, 4,.3, 3.0, 26, 1);
+   glEnable(GL_CULL_FACE);
+ //mod disk
+
+ glDisable(GL_CULL_FACE);
+//  glColor3f(1.0f,1.0f,1.0f);
+    gluDisk(pObj, 0,4.0f, 26, 13);
+glEnable(GL_CULL_FACE);
+ 
+
+
+ //tree foot idk
+    // glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    glColor3f(0.6,.1,0.2);
+    //suliinh ni y dagu + bol deeshee (x,z,y)
+    glTranslatef(.0f, .0f, -1.8f);
+    glDisable(GL_CULL_FACE);
+    gluCylinder(pObj, 1.5, 1.5, 3, 99, 99);
+    glEnable(GL_CULL_FACE);
+
+    glDisable(GL_CULL_FACE);
+    gluDisk(pObj, 0.0f, 1.5f, 26, 13);
+    glEnable(GL_CULL_FACE);
+
+// glPopMatrix();
+
+    chimeglel(pObj, 1.3f, -.12f, 3.5f);
+    chimeglel(pObj, -2.0f, -.12f, 2.5f);
+    chimeglel(pObj, -3.4f, -.12f, 1.5f);
+
+}
+
+
+
 // Called to draw scene
 void RenderScene(void) {
     GLUquadricObj *pObj;  // Quadric Object
@@ -148,48 +219,38 @@ void RenderScene(void) {
     // gluSphere(pObj, 0.24f, 26, 13);
     // glPushMatrix();
 
-//tree body
-glColor3f(.0,1.0,.0);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-    glTranslatef(0.1f, -0.12f, 0.0f);
-    glDisable(GL_CULL_FACE);
-    gluCylinder(pObj, 2,.0, 3, 26, 1);
-   glEnable(GL_CULL_FACE);
- 
- //tree foot idk
-    // glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-    glColor3f(0.6,.1,0.2);
-    //suliinh ni y dagu + bol deeshee (x,z,y)
-    glTranslatef(.0f, .0f, -1.0f);
-    glDisable(GL_CULL_FACE);
-    gluCylinder(pObj, 0.5, .5, 1, 26, 1);
-    glEnable(GL_CULL_FACE);
 
+/*End mod baih estoi*/
+
+glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+mod(pObj,0.5f,-.12f,3.5f);
+
+// mod(pObj,0.5f,-.12f,4.5f);
     // Eyes
-    chimeglel(pObj,0.1f, -0.12f, 1.0f);
-    chimeglel(pObj, 0.3f, -.12f, 3.5f);
 
+    
+    
     // chimeglel(pObj);
     // chimeglel(pObj);
 
     // Nose
 
 glPopMatrix();
-    // Hat
-    glPushMatrix();
-    glColor3f(0.0f, 0.0f, 0.0f);
-    glTranslatef(0.0f, 1.17f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-    gluCylinder(pObj, 0.17f, 0.17f, 0.4f, 26, 13);
+    // // Hat
+    // glPushMatrix();
+    // glColor3f(0.0f, 0.0f, 0.0f);
+    // glTranslatef(0.0f, 1.17f, 0.0f);
+    // glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    // gluCylinder(pObj, 0.17f, 0.17f, 0.4f, 26, 13);
 
-    // Hat brim
-    glDisable(GL_CULL_FACE);
-    gluDisk(pObj, 0.17f, 0.28f, 26, 13);
-    glEnable(GL_CULL_FACE);
+    // // Hat brim
+    // glDisable(GL_CULL_FACE);
+    // gluDisk(pObj, 0.17f, 0.28f, 26, 13);
+    // glEnable(GL_CULL_FACE);
 
-    glTranslatef(0.0f, 0.0f, 0.40f);
-    gluDisk(pObj, 0.0f, 0.17f, 26, 13);
-    glPopMatrix();
+    // glTranslatef(0.0f, 0.0f, 0.40f);
+    // gluDisk(pObj, 0.0f, 0.17f, 26, 13);
+    // glPopMatrix();
 
     // Restore the matrix state
     glPopMatrix();
@@ -202,10 +263,12 @@ int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(800, 600);
-    glutCreateWindow("Modeling with Quadrics");
+    glutCreateWindow("");
     glutReshapeFunc(ChangeSize);
     glutSpecialFunc(SpecialKeys);
     glutDisplayFunc(RenderScene);
+
+glutIdleFunc(RenderScene);
     SetupRC();
     glutMainLoop();
 
